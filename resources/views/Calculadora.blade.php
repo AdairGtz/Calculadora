@@ -73,12 +73,14 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
+        
         $(document).ready(function() {
             $("#calcular").click(function() {
                 var valor1 = parseFloat($("#valor1").val());
                 var valor2 = parseFloat($("#valor2").val());
                 var operacion = $("#operacion").val();
                 var resultado = 0;
+
 
                 if (isNaN(valor1) || isNaN(valor2)) {
                     $("#error-message").text("Ingrese valores válidos").removeClass("d-none");
