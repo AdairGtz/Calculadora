@@ -1,26 +1,17 @@
 language: php
-
-
-
-
-dist: bionic
-
-
 php:
- - 7.3
+  - 8.0 # Especifica la versión de PHP que deseas utilizar
 
- service:
- - mysql
-
-
- before_script:
+before_script:
   - cp .env.example .env
   - composer self-update
-  - composer install --no-interaction --prefer-source
+  - composer install --no-interaction
   - php artisan key:generate
+  - php artisan migrate --seed # Ejecuta las migraciones y la semilla de la base de datos
 
 script:
- - vendor/bin/phpunit
+  - vendor/bin/phpunit
+  - phpunit 
 
 after_script:
   - mkdir -p $TRAVIS_BUILD_DIR/test-results
