@@ -1,17 +1,13 @@
 language: php
-
 php:
-  - '8.0'
-
+  - 8.0 # Especifica la versión de PHP que deseas utilizar
+services:
+  - mysql # Puedes especificar cualquier base de datos que necesites
 before_script:
+  - cp .env.example .env
   - composer self-update
   - composer install --no-interaction
-  - cp .env.example .env
   - php artisan key:generate
-
+  - php artisan migrate --seed # Ejecuta las migraciones y la semilla de la base de datos
 script:
-  - phpunit
-
-branches:
-  only:
-    - main
+  - phpunit # Ejecuta las pruebas de PHPUnit
