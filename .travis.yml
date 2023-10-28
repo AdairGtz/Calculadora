@@ -20,3 +20,31 @@ after_script:
 after_success:
   - travis_retry php vendor/bin/php-coveralls
 
+{
+  "language": "php",
+  "os": [
+    "linux"
+  ],
+  "dist": "xenial",
+  "php": [
+    "8.0"
+  ],
+  "before_script": [
+    "cp .env.example .env",
+    "composer self-update",
+    "composer install --no-interaction",
+    "php artisan key:generate"
+  ],
+  "script": [
+    "vendor/bin/phpunit",
+    "phpunit"
+  ],
+  "after_script": [
+    "mkdir -p $TRAVIS_BUILD_DIR/test-results",
+    "find ./tests -type f -name \"*.xml\" -exec mv {} $TRAVIS_BUILD_DIR/test-results/ \\;",
+    "travis_retry php vendor/bin/php-coveralls"
+  ],
+  "after_success": [
+    "travis_retry php vendor/bin/php-coveralls"
+  ]
+}
