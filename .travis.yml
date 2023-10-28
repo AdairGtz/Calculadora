@@ -7,7 +7,6 @@ before_script:
   - composer self-update
   - composer install --no-interaction
   - php artisan key:generate
-  - php artisan migrate --seed # Ejecuta las migraciones y la semilla de la base de datos
 
 script:
   - vendor/bin/phpunit
@@ -16,4 +15,7 @@ script:
 after_script:
   - mkdir -p $TRAVIS_BUILD_DIR/test-results
   - find ./tests -type f -name "*.xml" -exec mv {} $TRAVIS_BUILD_DIR/test-results/ \;
+  - travis_retry php vendor/bin/php-coveralls
+
+after_success:
   - travis_retry php vendor/bin/php-coveralls
